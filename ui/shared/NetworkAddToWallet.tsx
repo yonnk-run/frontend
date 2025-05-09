@@ -49,7 +49,8 @@ const NetworkAddToWallet = () => {
   }
 
   return (
-    <Button variant="outline" size="sm" onClick={ handleClick }>
+    <Button color={ config.UI.views.color.dailyTxs || '' } borderColor={ config.UI.views.color.panelBtn || '' } 
+      variant="outline" size="sm" onClick={ handleClick }>
       <IconSvg name={ WALLETS_INFO[wallet].icon } boxSize={ 5 }/>
       Add { config.chain.name }
     </Button>

@@ -881,6 +881,37 @@ const schema = yup
       .of(nftMarketplaceSchema),
     NEXT_PUBLIC_VIEWS_TOKEN_SCAM_TOGGLE_ENABLED: yup.boolean(),
     NEXT_PUBLIC_HELIA_VERIFIED_FETCH_ENABLED: yup.boolean(),
+    
+    NEXT_PUBLIC_CUSTOM_COLOR: yup 
+    .object() 
+    .transform(replaceQuotes) 
+    .json() 
+    .shape({ 
+      brightThemeColor: yup 
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for brightThemeColor is incorrect. It should be in rgb format.'),
+      darkThemeColor: yup 
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for darkThemeColor is incorrect. It should be in rgb format.'),
+      textColor: yup
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for textColor is incorrect. It should be in rgb format.'),
+      textHoverColor: yup
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for textHoverColor is incorrect. It should be in rgb format.'),
+      buttonColor: yup
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for buttonColor is incorrect. It should be in rgb format.'),
+      darkButtonColor: yup
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for darkButtonColor is incorrect. It should be in rgb format.'),
+      lineOfCurveGraphColor: yup
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for lineOfCurveGraphColor is incorrect. It should be in rgb format.'),
+      shadowOfCurveGraphColor: yup
+        .string()
+        .matches(regexp.RGB_REGEXP, 'The color format for shadowOfCurveGraphColor is incorrect. It should be in rgb format.')
+    }),
 
     //     e. misc
     NEXT_PUBLIC_NETWORK_EXPLORERS: yup

@@ -114,8 +114,8 @@ const semanticTokens: ThemingConfig['semanticTokens'] = {
     },
     link: {
       primary: {
-        DEFAULT: { value: { _light: '{colors.blue.600}', _dark: '{colors.blue.300}' } },
-        hover: { value: { _light: '{colors.blue.400}' } },
+        DEFAULT: { value: { _light: config.UI.views.color.basicLink || '{colors.blue.600}', _dark: config.UI.views.color.basicLink || '{colors.blue.300}' } },
+        hover: { value: { _light: config.UI.views.color.basicHover || '{colors.blue.400}' } },
       },
       secondary: {
         DEFAULT: { value: { _light: '{colors.gray.500}', _dark: '{colors.gray.400}' } },

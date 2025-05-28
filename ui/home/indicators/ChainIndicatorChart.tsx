@@ -3,6 +3,7 @@ import React from 'react';
 
 import type { TimeChartData } from 'ui/shared/chart/types';
 
+import config from 'configs/app';
 import ChartArea from 'ui/shared/chart/ChartArea';
 import ChartLine from 'ui/shared/chart/ChartLine';
 import ChartOverlay from 'ui/shared/chart/ChartOverlay';
@@ -18,7 +19,9 @@ const CHART_MARGIN = { bottom: 5, left: 10, right: 10, top: 5 };
 
 const ChainIndicatorChart = ({ data }: Props) => {
   const overlayRef = React.useRef<SVGRectElement>(null);
-  const lineColor = useToken('colors', 'blue.500');
+  const _lineColor = useToken('colors', 'blue.500');
+  const lineColor = config.UI.views.color.dailyTxs || _lineColor;
+  const areaColor = config.UI.views.color.dailyTxsArea || '';
 
   const axesConfig = React.useMemo(() => {
     return {
@@ -40,12 +43,13 @@ const ChainIndicatorChart = ({ data }: Props) => {
           data={ data[0].items }
           xScale={ axes.x.scale }
           yScale={ axes.y.scale }
+          color={ areaColor || '' }
         />
         <ChartLine
           data={ data[0].items }
           xScale={ axes.x.scale }
           yScale={ axes.y.scale }
-          stroke={ lineColor }
+          stroke={ lineColor[0] }
           animation="left"
           strokeWidth={ 3 }
         />

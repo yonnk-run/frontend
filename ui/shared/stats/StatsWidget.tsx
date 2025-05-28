@@ -3,6 +3,7 @@ import React from 'react';
 
 import type { Route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import Skeleton from 'ui/shared/chakra/Skeleton';
 import Hint from 'ui/shared/Hint';
 import IconSvg, { type IconName } from 'ui/shared/IconSvg';
@@ -52,7 +53,9 @@ const StatsWidget = ({
   period,
   href,
 }: Props) => {
-  const bgColor = useColorModeValue('gray.50', 'whiteAlpha.100');
+  const stringBg = config.UI.views.color.panelBtn;
+  const stringBgDark = config.UI.views.color.panelBtnDark;
+  const bgColor = useColorModeValue(stringBg || 'gray.50', stringBgDark || 'whiteAlpha.100');
   const skeletonBgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
   const hintColor = useColorModeValue('gray.600', 'gray.400');
 

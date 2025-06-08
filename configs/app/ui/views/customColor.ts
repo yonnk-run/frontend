@@ -106,7 +106,8 @@ function adjustColor(customColor: { r: number; g: number; b: number }, targetCol
 }
 
 const handleCustomColor = (() => {
-  const customColorJSON = parseEnvJson<ColorConfig | null>(getEnvValue(process.env.NEXT_PUBLIC_CUSTOM_COLOR));
+
+  const customColorJSON = parseEnvJson<ColorConfig | null>(getEnvValue('NEXT_PUBLIC_CUSTOM_COLOR'));
   const defaultCustomColor = {
     panelBtn: '',
     panelBtnDark: '',

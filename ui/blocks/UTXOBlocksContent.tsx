@@ -15,6 +15,7 @@ import { getResourceKey } from 'lib/api/useApiQuery';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
+import { MOCK_BLOCKS } from 'stubs/qitmeer_mock_data';
 import UTXOBlocksList from 'ui/blocks/UTXOBlocksList';
 import UTXOBlocksTable from 'ui/blocks/UTXOBlocksTable';
 import ActionBar from 'ui/shared/ActionBar';
@@ -42,6 +43,8 @@ const UTXOBlocksContent = ({
   const isMobile = useIsMobile();
   const [socketAlert, setSocketAlert] = React.useState('');
   const [newItemsCount, setNewItemsCount] = React.useState(0);
+  const mockData = React.useMemo(() => MOCK_BLOCKS, []);
+  const dataToUse = query.data?.items && query.data.items.length > 0 ? query.data.items : mockData;
   const handleNewBlockMessage: SocketMessage.NewBlock['handler'] =
     React.useCallback(
       (payload) => {
@@ -104,7 +107,7 @@ const UTXOBlocksContent = ({
     event: 'new_block',
     handler: handleNewBlockMessage,
   });
-  const content = query.data?.items ? (
+  const content = dataToUse && dataToUse.length > 0 ? (
     <>
       <Box display={{ base: 'block', lg: 'none' }}>
         {query.pagination.page === 1 && enableSocket && (
@@ -117,14 +120,14 @@ const UTXOBlocksContent = ({
           />
         )}
         <UTXOBlocksList
-          data={query.data.items}
+          data={dataToUse}
           isLoading={query.isPlaceholderData}
           page={query.pagination.page}
         />
       </Box>
       <Box display={{ base: 'none', lg: 'block' }}>
         <UTXOBlocksTable
-          data={query.data.items}
+          data={dataToUse}
           top={top || (query.pagination.isVisible ? TABS_HEIGHT : 0)}
           page={query.pagination.page}
           isLoading={query.isPlaceholderData}
@@ -150,8 +153,8 @@ const UTXOBlocksContent = ({
   ) : null;
   return (
     <DataListDisplay
-      isError={query.isError}
-      items={query.data?.items}
+      isError={!dataToUse || dataToUse.length === 0}
+      items={dataToUse}
       emptyText="There are no blocks."
       content={content}
       actionBar={actionBar}

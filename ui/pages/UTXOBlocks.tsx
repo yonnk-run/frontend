@@ -8,8 +8,9 @@ import type { RoutedTab } from 'ui/shared/Tabs/types';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { BLOCK } from 'stubs/block';
+import { MOCK_BLOCKS } from 'stubs/qitmeer_mock_data';
 import { generateListStub } from 'stubs/utils';
-import BlocksContent from 'ui/blocks/BlocksContent';
+// import BlocksContent from 'ui/blocks/BlocksContent';
 import BlocksTabSlot from 'ui/blocks/BlocksTabSlot';
 import UTXOBlocksContent from 'ui/blocks/UTXOBlocksContent';
 import PageTitle from 'ui/shared/Page/PageTitle';
@@ -39,11 +40,11 @@ const BlocksPageContent = () => {
     },
   });
   const reorgsQuery = useQueryWithPages({
-    resourceName: 'blocks',
+    resourceName: 'qitmeer_blocks',
     filters: { type: 'reorg' },
     options: {
       enabled: tab === 'reorgs',
-      placeholderData: generateListStub<'blocks'>(BLOCK, 50, {
+      placeholderData: generateListStub<'qitmeer_blocks'>(MOCK_BLOCKS[0], 50, {
         next_page_params: {
           block_number: 8988686,
           items_count: 50,
@@ -79,7 +80,11 @@ const BlocksPageContent = () => {
       title: 'All',
       component: <UTXOBlocksContent type="block" query={blocksQuery} />,
     },
-    { id: 'reorgs', title: 'Forked', component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
+    {
+      id: 'reorgs',
+      title: 'Forked',
+      component: <UTXOBlocksContent type="reorg" query={reorgsQuery} />,
+    },
     // { id: 'uncles', title: 'Uncles', component: <BlocksContent type="uncle" query={ unclesQuery }/> },
   ];
   return (

@@ -1,4 +1,4 @@
-import { Show, Hide } from '@chakra-ui/react';
+import { Hide, Show } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressFromToFilter } from 'types/api/address';
@@ -6,6 +6,7 @@ import type { UTXOTransaction } from 'types/api/qitmeer_tx';
 import type { TransactionsSortingField, TransactionsSortingValue } from 'types/api/transaction';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { MOCK_TRANSACTIONS } from 'stubs/qitmeer_mock_data';
 import AddressCsvExportLink from 'ui/address/AddressCsvExportLink';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -61,12 +62,19 @@ const QitmeerTxsContent = ({
 }: Props) => {
   const isMobile = useIsMobile();
 
+  // 添加虚拟数据逻辑
+  const mockData = React.useMemo(() => MOCK_TRANSACTIONS, []);
+  const dataToUse = items && items.length > 0 ? items : mockData;
+
+  // 当有虚拟数据时，不显示错误
+  const shouldShowError = isError && (!dataToUse || dataToUse.length === 0);
+
   const onSortToggle = React.useCallback((field: TransactionsSortingField) => () => {
     const value = getNextSortValue<TransactionsSortingField, TransactionsSortingValue>(SORT_SEQUENCE, field)(sort);
     setSorting(value);
   }, [ sort, setSorting ]);
 
-  const itemsWithTranslation = useDescribeQitmeerTxs(items, currentAddress, query.isPlaceholderData);
+  const itemsWithTranslation = useDescribeQitmeerTxs(dataToUse, currentAddress, query.isPlaceholderData);
 
   const content = itemsWithTranslation ? (
     <>
@@ -121,7 +129,7 @@ const QitmeerTxsContent = ({
 
   return (
     <DataListDisplay
-      isError={ isError }
+      isError={ shouldShowError }
       items={ itemsWithTranslation }
       emptyText="There are no transactions."
       content={ content }

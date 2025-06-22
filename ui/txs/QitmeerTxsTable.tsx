@@ -37,15 +37,15 @@ const QitmeerTxsTable = ({
 
   return (
     <AddressHighlightProvider>
-      <Table minWidth="950px">
+      <Table minWidth="100%" size="sm">
         <TheadSticky top={ top }>
           <Tr>
-            <Th width="54px"></Th>
-            <Th width="180px">Txn hash</Th>
-            <Th width="500px">Vin</Th>
-            <Th width="450px">To</Th>
-            <Th width="100px">Amount</Th>
-            <Th width="50px">vout index</Th>
+            <Th width="5%" minW="50px"></Th>
+            <Th width="20%" minW="150px">Txn hash</Th>
+            <Th width="35%" minW="200px">Vin</Th>
+            <Th width="25%" minW="180px">To</Th>
+            <Th width="10%" minW="80px">Amount</Th>
+            <Th width="5%" minW="60px">vout index</Th>
           </Tr>
         </TheadSticky>
         <Tbody>

@@ -30,18 +30,18 @@ const UTXOBlocksTable = ({
 }: Props) => {
   return (
     <AddressHighlightProvider>
-      <Table minWidth="1040px" fontWeight={500}>
+      <Table minWidth="100%" fontWeight={500} size="sm">
         <Thead top={top}>
           <Tr>
-            <Th width="120px">BlockOrder</Th>
-            <Th width="600px">Hash</Th>
-            <Th width="120px">Coinbase</Th>
-            <Th width="200px">Algorithm</Th>
-            <Th width="400px">Miner</Th>
-            <Th width="200px" isNumeric>
+            <Th width="10%" minW="100px">BlockOrder</Th>
+            <Th width="35%" minW="200px">Hash</Th>
+            <Th width="10%" minW="80px">Coinbase</Th>
+            <Th width="15%" minW="120px">Algorithm</Th>
+            <Th width="20%" minW="150px">Miner</Th>
+            <Th width="8%" minW="80px" isNumeric>
               Transactions Count
             </Th>
-            <Th width="120px" isNumeric>
+            <Th width="7%" minW="60px" isNumeric>
               Status
             </Th>
           </Tr>

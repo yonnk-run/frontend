@@ -43,8 +43,8 @@ const UTXOBlocksContent = ({
   const isMobile = useIsMobile();
   const [socketAlert, setSocketAlert] = React.useState('');
   const [newItemsCount, setNewItemsCount] = React.useState(0);
-  const mockData = React.useMemo(() => MOCK_BLOCKS, []);
-  const dataToUse = query.data?.items && query.data.items.length > 0 ? query.data.items : mockData;
+  // 使用原始数据逻辑
+  const dataToUse = query.data?.items;
   const handleNewBlockMessage: SocketMessage.NewBlock['handler'] =
     React.useCallback(
       (payload) => {

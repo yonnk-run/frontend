@@ -62,12 +62,9 @@ const QitmeerTxsContent = ({
 }: Props) => {
   const isMobile = useIsMobile();
 
-  // 添加虚拟数据逻辑
-  const mockData = React.useMemo(() => MOCK_TRANSACTIONS, []);
-  const dataToUse = items && items.length > 0 ? items : mockData;
-
-  // 当有虚拟数据时，不显示错误
-  const shouldShowError = isError && (!dataToUse || dataToUse.length === 0);
+  // 使用原始数据逻辑
+  const dataToUse = items;
+  const shouldShowError = isError && (!items || items.length === 0);
 
   const onSortToggle = React.useCallback((field: TransactionsSortingField) => () => {
     const value = getNextSortValue<TransactionsSortingField, TransactionsSortingValue>(SORT_SEQUENCE, field)(sort);
